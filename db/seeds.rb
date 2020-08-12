@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+SynthSetting.destroy_all
+Preset.destroy_all
+
+10.times do 
+	puts "creating user"
+	User.create(username: Faker::Music::RockBand.name , password: "password")
+end
+
+10.times do
+	puts "creating SynthSettings"
+	SynthSetting.create(synth: Faker::Music.instrument, effect: Faker::Space.galaxy)
+end
+
+10.times do
+	puts "creating synth-profiles"
+	Preset.create(user_id: User.all.sample.id, synth_setting_id: SynthSetting.all.sample.id)
+end
