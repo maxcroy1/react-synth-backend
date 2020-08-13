@@ -1,8 +1,8 @@
 class CreatePresets < ActiveRecord::Migration[6.0]
   def change
     create_table :presets do |t|
-    	t.integer :user_id
-    	t.integer :synth_setting_id
+    	t.references :user, foreign_key: true
+    	t.references :synth_setting, foreign_key: true
       t.timestamps
     end
   end

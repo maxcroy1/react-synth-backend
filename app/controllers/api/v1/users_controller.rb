@@ -14,6 +14,10 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
+    def edit
+        @user = User.find_by(username: user_login_params[:username])
+    end
+
     private
     def user_params
         params.require(:user).permit(:username, :password)

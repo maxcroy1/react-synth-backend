@@ -16,15 +16,20 @@ ActiveRecord::Schema.define(version: 2020_08_12_182644) do
   enable_extension "plpgsql"
 
   create_table "presets", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "synth_setting_id"
+    t.bigint "user_id"
+    t.bigint "synth_setting_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["synth_setting_id"], name: "index_presets_on_synth_setting_id"
+    t.index ["user_id"], name: "index_presets_on_user_id"
   end
 
   create_table "synth_settings", force: :cascade do |t|
     t.string "synth"
     t.string "effect"
+    t.integer "gain"
+    t.integer "reverb_wet"
+    t.integer "reverb_decay"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -36,4 +41,6 @@ ActiveRecord::Schema.define(version: 2020_08_12_182644) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "presets", "synth_settings"
+  add_foreign_key "presets", "users"
 end
