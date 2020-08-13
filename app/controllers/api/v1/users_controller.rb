@@ -14,13 +14,24 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    def edit
-        @user = User.find_by(username: user_login_params[:username])
+    def update
+        @user = User.find(user_params[:id])
+        if @user.valid?
+          @synth_setting = SynthSetting.create(gain: user_params[:synth_settings_attributes][:gain])
+          if @synth_setting.valid?
+            @preset = Preset.new(user: @user, synth_setting: @synth_setting)
+            render json: { user: UserSerializer.new(@user), jwt: @token, synth_setting: @synth_setting }, status: :created
+          else
+            render json: { error: 'failed to create preset' }, status: :not_acceptable
+          end
+        else 
+          render json: { error: 'failed to create user' }, status: :not_acceptable
+        end
     end
 
     private
     def user_params
-        params.require(:user).permit(:username, :password)
+        params.require(:user).permit(:username, :password, :id, synth_settings_attributes: [:synth, :gain, :reverb_wet, :reverb_decay])
     end
     
 end
