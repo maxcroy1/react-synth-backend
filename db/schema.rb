@@ -26,10 +26,9 @@ ActiveRecord::Schema.define(version: 2020_08_12_182644) do
 
   create_table "synth_settings", force: :cascade do |t|
     t.string "synth"
-    t.string "effect"
-    t.integer "gain"
-    t.integer "reverb_wet"
-    t.integer "reverb_decay"
+    t.float "gain"
+    t.float "reverb_wet"
+    t.float "reverb_decay"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
