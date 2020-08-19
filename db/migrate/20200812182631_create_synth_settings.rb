@@ -4,7 +4,9 @@ class CreateSynthSettings < ActiveRecord::Migration[6.0]
     	t.string :synth
     	t.float :gain 
     	t.float :reverb_wet
-    	t.float :reverb_decay
+      t.float :reverb_decay
+      t.float :bitcrush
+      t.float :cheby
       t.timestamps
     end
   end
