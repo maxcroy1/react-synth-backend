@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :update]
 
   def profile
     render json: { user: UserSerializer.new(current_user), presets: @user.synth_settings }, status: :accepted
